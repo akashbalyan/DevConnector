@@ -27,7 +27,7 @@ const AddEducation = ({ addEducation, history }) => {
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  onsubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     addEducation(formData, history);
   };
@@ -39,7 +39,7 @@ const AddEducation = ({ addEducation, history }) => {
         you have attended
       </p>
       <small>* = required field</small>
-      <form class="form">
+      <form class="form" onSubmit={e=>onSubmit(e)}>
         <div class="form-group">
           <input
             type="text"
@@ -94,7 +94,7 @@ const AddEducation = ({ addEducation, history }) => {
           ></textarea>
         </div>
         <input type="submit" class="btn btn-primary my-1" />
-        <Link class="btn btn-light my-1" to="/dashboard">
+        <Link class="btn btn-light my-1" to="/dashboard"> 
           Go Back
         </Link>
       </form>

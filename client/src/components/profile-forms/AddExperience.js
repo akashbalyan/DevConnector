@@ -27,7 +27,7 @@ const AddExperience = ({addExperience,history}) => {
     }=formData;
 
     const onChange = e =>setFormData({...formData,[e.target.name]:e.target.value});
-    onsubmit = e =>{
+    const onSubmit = e =>{
         e.preventDefault();
         addExperience(formData,history);
     }
@@ -39,7 +39,7 @@ const AddExperience = ({addExperience,history}) => {
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form class="form">
+      <form class="form" onSubmit={e=>onSubmit(e)}>
         <div class="form-group">
           <input type="text" placeholder="* Job Title" 
           name="title" 

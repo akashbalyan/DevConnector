@@ -18,8 +18,11 @@ const Dashboard = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+  }, []);
 
+  useEffect(()=>{
+    !loading && window.scrollTo(0, 0);
+  })
   return loading && profile === null ? (
     <Spinner />
   ) : (

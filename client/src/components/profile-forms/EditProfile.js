@@ -42,7 +42,9 @@ const EditProfile = ({profile:{profile,loading},createProfile,getCurrentProfile,
   }
 
   useEffect(()=>{
-      getCurrentProfile();
+      if(!profile){
+        getCurrentProfile();
+      }
       setFormData({
         company:loading || !profile.company ? "" :profile.company,
         website:loading || !profile.website ? "" :profile.website,
@@ -57,7 +59,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,getCurrentProfile,
         youtube:loading || !profile.youtube ? "" :profile.youtube,
         instagram:loading || !profile.instagram ? "" :profile.instagram,
       });
-  },[loading,getCurrentProfile])
+  },[loading,getCurrentProfile,profile])
   return (
     <Fragment>
       <h1 className="large text-primary">Edit Your Profile</h1>
@@ -66,7 +68,7 @@ const EditProfile = ({profile:{profile,loading},createProfile,getCurrentProfile,
         profile stand out
       </p>
       <small>* = required field</small>
-      <form onSubmit={e=>onSubmit(e)}className="form">
+      <form onSubmit={e=>onSubmit(e)} className="form">
         <div className="form-group">
           <select name="status" value={status} onChange={e=>onChange(e)}>
             <option value="0">* Select Professional Status</option>
