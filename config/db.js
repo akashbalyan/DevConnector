@@ -1,5 +1,11 @@
 const mongoose=require('mongoose');
 
+//use this command to create db in mongoDb
+//use my_db
+
+//For connecting 'my_db' mongoDb database 
+//mongoose.connect('mongodb://localhost/my_db');
+
 const config=require('config');
 
 const db=config.get('mongoURI');

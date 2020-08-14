@@ -7,25 +7,34 @@ import axios from 'axios';
     ACCOUNT_DELETED,
     CLEAR_PROFILE,
     GET_REPOS,
-    NO_REPOS
+    NO_REPOS,
+    AUTH_ERROR
 } from './types';
 import {setAlert} from './alert';
 
 export const getCurrentProfile = () =>async dispatch =>{
     try {
-        const res= await axios.get('./api/profile/me');
+        const res= await axios.get('/api/profile/me');
         dispatch({
             type:GET_PROFILE,
             payload:res.data
         })
     } catch (err) {
-        dispatch({
-            type:PROFILE_ERROR,
-            payload:{
-                msg:err.response.statusText,
-                status:err.response.status
-            }
-        })
+        if(err.response.status == 401){
+            console.log('this is Auth Error')
+            dispatch({
+                type:AUTH_ERROR 
+            });
+        }else{
+            dispatch({
+                type:PROFILE_ERROR,
+                payload:{
+                    msg:err.response.statusText,
+                    status:err.response.status
+                }
+            })
+        }
+        
     }
 
 }
@@ -89,7 +98,7 @@ export const createProfile=(formData,history,edit=false)=>async dispatch=>{
                 'Content-Type':'application/json'
             }
         }
-        const res= await axios.post('./api/profile',formData,config);
+        const res= await axios.post('/api/profile',formData,config);
         dispatch({
             type:GET_PROFILE,
             payload:res.data

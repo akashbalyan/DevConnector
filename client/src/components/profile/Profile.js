@@ -9,7 +9,7 @@ import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
-
+import {useHistory,useLocation} from 'react-router';
 
 const Profile = ({
     getProfileById,
@@ -22,10 +22,16 @@ const Profile = ({
 }) => {
     useEffect(()=>{
         getProfileById(match.params.id);
-    },[]);
-    return profile===null || loading ? (<Spinner/>) : (
+    },[getProfileById]);
+
+    const history=useHistory();
+
+    if(profile==null){
+        return <h3>The User Profile is not updated!!</h3>
+    }else{
+    return loading ? (<Spinner/>) : (
         <Fragment>
-        <Link to="/profiles" className="btn btn-light">Back To Profiles</Link>
+        <button onClick={()=>history.goBack()}className="btn btn-light">Go Back</button>
         {auth.isAuthenticated && auth.loading===false && auth.user._id ===profile.user._id && 
         (
             <Link to="/edit-profile" className="btn btn-dark">
@@ -60,6 +66,7 @@ const Profile = ({
         </div>
         </Fragment>
     )
+        }
 };
 
 Profile.propTypes = {
